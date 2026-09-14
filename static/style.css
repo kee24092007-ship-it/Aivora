@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 340px;
+    background-color: #1e293b;
+    padding: 24px;
+    border-right: 1px solid #334155;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar h2 {
+    font-size: 1.4rem;
+    color: #38bdf8;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #334155;
+}
+
+.card {
+    background-color: #0f172a;
+    padding: 18px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #e2e8f0;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-form label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.upload-form input {
+    background: #1e293b;
+    border: 1px solid #475569;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    margin-top: 6px;
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0369a1;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.green {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+/* Main Video Section */
+.main-content {
+    flex: 1;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    color: #f8fafc;
+    margin-bottom: 6px;
+}
+
+.header p {
+    color: #94a3b8;
+}
+
+.video-wrapper {
+    background-color: #1e293b;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #0284c7;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+}
+
+.video-feed {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

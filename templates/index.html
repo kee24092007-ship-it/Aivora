@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masked Face Recognition System</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar">
+            <h2>🎭 Control Panel</h2>
+            <p class="subtitle">InsightFace + FastAPI Engine</p>
+            
+            <hr class="divider">
+
+            <div class="card">
+                <h3>Add New Person</h3>
+                <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+                    <label for="name">Person Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter full name" required>
+                    
+                    <label for="file">Select Photo:</label>
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                    
+                    <button type="submit" class="btn btn-primary">Save Face</button>
+                </form>
+            </div>
+
+            <div class="card status-card">
+                <h3>System Status</h3>
+                <div class="status-indicator">
+                    <span class="dot green"></span>
+                    <span>Camera Stream Active</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Video Streaming Dashboard -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Real-Time Masked Face Recognition</h1>
+                <p>Detects faces accurately even with surgical masks using periocular embeddings.</p>
+            </header>
+
+            <div class="video-wrapper">
+                <img src="/video_feed" alt="Video feed starting..." class="video-feed">
+            </div>
+        </main>
+    </div>
+</body>
+</html>
