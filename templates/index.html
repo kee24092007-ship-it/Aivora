@@ -3,52 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masked Face Recognition System</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Aivora — Masked Face Recognition</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1d;
+            --bg-secondary: #131b2e;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-glow: rgba(0, 242, 254, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(19, 27, 46, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(79, 172, 254, 0.12) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(0, 242, 254, 0.08) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        /* Top Navigation Header */
+        header {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 28px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+            font-weight: 800;
+            color: #040914;
+            font-size: 1.2rem;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff, #a5f3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Video Card */
+        .video-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-viewport {
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #000;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            height: fit-content;
+        }
+
+        .form-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="file"] {
+            background: rgba(10, 15, 29, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        .input-group input[type="text"]:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #040914;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        #status-msg {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .msg-success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .msg-error {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Controls -->
-        <aside class="sidebar">
-            <h2>🎭 Control Panel</h2>
-            <p class="subtitle">InsightFace + FastAPI Engine</p>
+
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <div class="brand-logo">A</div>
+            <span class="brand-name">Aivora</span>
+            <span class="brand-badge">Vision AI</span>
+        </div>
+        <div class="header-status">
+            <div class="pulse-dot"></div>
+            <span>System Operational</span>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <div class="container">
+        <!-- Left: Live Feed -->
+        <div class="video-card">
+            <div class="video-viewport">
+                <img src="/video_feed" width="720" height="480" alt="Aivora Stream Loading..." />
+            </div>
+        </div>
+
+        <!-- Right: Register New Face Form -->
+        <div class="form-card">
+            <h2>👤 Register New Face</h2>
             
-            <hr class="divider">
+            <div id="status-msg"></div>
 
-            <div class="card">
-                <h3>Add New Person</h3>
-                <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
-                    <label for="name">Person Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Enter full name" required>
-                    
-                    <label for="file">Select Photo:</label>
-                    <input type="file" id="file" name="file" accept="image/*" required>
-                    
-                    <button type="submit" class="btn btn-primary">Save Face</button>
-                </form>
-            </div>
-
-            <div class="card status-card">
-                <h3>System Status</h3>
-                <div class="status-indicator">
-                    <span class="dot green"></span>
-                    <span>Camera Stream Active</span>
+            <form id="register-form">
+                <div class="input-group">
+                    <label for="person_name">Full Name</label>
+                    <input type="text" id="person_name" name="person_name" placeholder="e.g. John Doe" required>
                 </div>
-            </div>
-        </aside>
 
-        <!-- Main Video Streaming Dashboard -->
-        <main class="main-content">
-            <header class="header">
-                <h1>Real-Time Masked Face Recognition</h1>
-                <p>Detects faces accurately even with surgical masks using periocular embeddings.</p>
-            </header>
+                <div class="input-group">
+                    <label for="file">Clear Photo</label>
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                </div>
 
-            <div class="video-wrapper">
-                <img src="/video_feed" alt="Video feed starting..." class="video-feed">
-            </div>
-        </main>
+                <button type="submit" class="btn-submit">Register Face</button>
+            </form>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; Powered by Aivora Computer Vision
+    </footer>
+
+    <!-- JS Form Submit Script -->
+    <script>
+        const form = document.getElementById('register-form');
+        const statusMsg = document.getElementById('status-msg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            statusMsg.style.display = 'none';
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/upload_face', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    statusMsg.className = 'msg-success';
+                    statusMsg.innerText = result.message;
+                    statusMsg.style.display = 'block';
+                    form.reset();
+                } else {
+                    statusMsg.className = 'msg-error';
+                    statusMsg.innerText = result.message || 'Error uploading face.';
+                    statusMsg.style.display = 'block';
+                }
+            } catch (error) {
+                statusMsg.className = 'msg-error';
+                statusMsg.innerText = 'Server error. Please try again.';
+                statusMsg.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
